@@ -1,0 +1,19 @@
+//10988번
+#define _CRT_SECURE_NO_WARNINGS
+#include <stdio.h>
+#include<string.h>
+
+int main() {
+	char string[101];
+	scanf("%s", string);
+
+	for (int i = 0; i <= strlen(string) / 2; i++) {
+		if (string[i] != string[strlen(string) - i - 1]) {
+			printf("0");
+			return 0;
+		}
+			
+	}
+	printf("1");
+	return 0;
+}
