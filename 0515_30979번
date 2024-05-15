@@ -1,0 +1,34 @@
+#include <stdio.h>
+
+int main(void) {
+	int T; //분
+	scanf("%d", &T);
+
+	if (T < 1 || T > 1000)
+		return 1;
+
+	int N; //개수
+	scanf("%d", &N);
+	
+	if (N < 1 || N > 100)
+		return 1;
+
+	int F[N]; //맛
+
+	int sum=0; //F와 sum 값을 비교해 happy인지 cry인지 출력되게끔하기
+
+	for (int i = 0; i < N; i++) {
+		scanf("%d", &F[i]);
+		if (F[i] < 1 || F[i]>10) {
+			return 1;
+		}
+		sum += F[i];
+	}
+
+	if (sum >= T)
+		printf("Padaeng_i Happy");
+	else
+		printf("Padaeng_i Cry");
+
+	return 0;
+}
