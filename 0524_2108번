@@ -1,0 +1,91 @@
+#include <stdio.h>
+#include <math.h>
+#include <stdlib.h>
+
+int ArithmeticMean(int *arr, int n);
+int Median(int *arr, int n);
+int Mode(int *arr, int n);
+int Range(int *arr, int n);
+
+int static compare (const void* first, const void* second)
+{
+    if (*(int*)first > *(int*)second)
+        return 1;
+    else if (*(int*)first < *(int*)second)
+        return -1;
+    else
+        return 0;
+}
+
+int main()
+{
+    int n, num;
+    scanf("%d", &n);
+    int sum = 0;
+    int *arr = (int *)malloc(sizeof(int) * n);
+
+    for (int i = 0; i < n; i++)
+    {
+        scanf("%d", &num);
+        arr[i] = num;
+        sum += num;
+    }
+
+    printf("%d\n", ArithmeticMean(arr, n));
+    printf("%d\n", Median(arr, n));
+    printf("%d\n", Mode(arr, n));
+    printf("%d\n", Range(arr, n));
+
+    free(arr);
+    return 0;
+}
+
+int ArithmeticMean(int *arr, int n)
+{
+    double sum = 0;
+    for (int i = 0; i < n; i++)
+    {
+        sum += arr[i];
+    }
+    return round(sum / n);
+}
+
+int Median(int *arr, int n)
+{
+    if (n == 1)
+    {
+        return arr[0];
+    }
+    qsort(arr, n, sizeof(int), compare);
+    return arr[((n + 1) / 2) - 1];
+}
+
+int Mode(int *arr, int n)
+{
+    int count[8001]={0};
+
+    int max = 0;
+    int mode = 0;
+    int sec_mode = 4000;
+    for (int i = 0; i < n; i++)
+    {
+        count[arr[i]+4000]++;
+        if (max < count[arr[i]+4000])
+        {
+            max = count[arr[i]+4000];
+            mode = arr[i];
+            sec_mode = 4000;
+        }
+        else if (max == count[arr[i]+4000] && arr[i] != mode && arr[i] < sec_mode)
+        {
+            sec_mode = arr[i];
+        }
+    }
+    return sec_mode == 4000 ? mode : sec_mode;
+}
+
+int Range(int *arr, int n)
+{
+    qsort(arr, n, sizeof(int), compare);
+    return (arr[n - 1] - arr[0]);
+}
